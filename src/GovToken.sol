@@ -2,14 +2,20 @@
 // Compatible with OpenZeppelin Contracts ^5.0.0
 pragma solidity ^0.8.20;
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol";
-import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol";
+import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import {ERC20Permit, Nonces} from "@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol";
+import {ERC20Votes} from "@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol";
 
 contract GovToken is ERC20, ERC20Permit, ERC20Votes {
     constructor() ERC20("GovToken", "GOV") ERC20Permit("GovToken") {}
 
     // The following functions are overrides required by Solidity.
+
+    function mint(address to, uint256 amount)
+        public
+    {
+        _mint(to, amount);
+    }
 
     function _update(address from, address to, uint256 value)
         internal
